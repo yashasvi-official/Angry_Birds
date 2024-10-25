@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="35" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="50">
+ <tileset firstgid="1" name="tileset updated" tilewidth="64" tileheight="64" tilecount="100" columns="10">
+  <image source="../tileset updated.png" trans="ff00ff" width="640" height="640"/>
+ </tileset>
+ <tileset firstgid="101" name="clouds" tilewidth="64" tileheight="64" tilecount="100" columns="10">
+  <image source="../clouds.png" trans="ff00ff" width="640" height="640"/>
+ </tileset>
+ <tileset firstgid="201" name="slingshot" tilewidth="176" tileheight="510" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../slingshot.png" width="176" height="510"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="202" name="g3" tilewidth="257" tileheight="27" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../glass/g3.png" width="257" height="27"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="203" name="g4" tilewidth="110" tileheight="110" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../glass/g4.png" width="110" height="110"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="204" name="g1" tilewidth="130" tileheight="124" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../glass/g1.png" width="130" height="124"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="205" name="g2" tilewidth="139" tileheight="127" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../glass/g2.png" width="139" height="127"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="206" name="r4" tilewidth="110" tileheight="110" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../rock/r4.png" width="110" height="110"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="207" name="r5" tilewidth="260" tileheight="33" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../rock/r5.png" width="260" height="33"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="208" name="r1" tilewidth="130" tileheight="124" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../rock/r1.png" width="130" height="124"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="209" name="r2" tilewidth="139" tileheight="127" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../rock/r2.png" width="139" height="127"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="210" name="r3" tilewidth="120" tileheight="118" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../rock/r3.png" width="120" height="118"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="211" name="w5" tilewidth="309" tileheight="28" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w5.png" width="309" height="28"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="212" name="w1" tilewidth="84" tileheight="82" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w1.png" width="84" height="82"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="213" name="w2" tilewidth="132" tileheight="130" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w2.png" width="132" height="130"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="214" name="w3" tilewidth="116" tileheight="116" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w3.png" width="116" height="116"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="215" name="w4" tilewidth="314" tileheight="31" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w4.png" width="314" height="31"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="216" name="ping-soldier" tilewidth="508" tileheight="532" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../pigs/ping-soldier.png" width="508" height="532"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="217" name="pig-king" tilewidth="1024" tileheight="1024" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../pigs/pig-king.png" width="1024" height="1024"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="218" name="pig-small" tilewidth="670" tileheight="659" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../pigs/pig-small.png" width="670" height="659"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="219" name="yellow" tilewidth="894" tileheight="894" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../red/yellow.png" width="894" height="894"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="220" name="black" tilewidth="512" tileheight="512" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../red/black.png" width="512" height="512"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="221" name="blue" tilewidth="1024" tileheight="1024" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../red/blue.png" width="1024" height="1024"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="222" name="green" tilewidth="1015" tileheight="734" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../red/green.png" width="1015" height="734"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="223" name="Red (1)" tilewidth="1000" tileheight="959" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../red/Red (1).png" width="1000" height="959"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="224" name="white" tilewidth="1600" tileheight="1455" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../red/white.png" width="1600" height="1455"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="225" name="w6" tilewidth="32" tileheight="315" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w6.png" width="32" height="315"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="226" name="w7" tilewidth="29" tileheight="310" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../wood/w7.png" width="29" height="310"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="227" name="r6" tilewidth="34" tileheight="261" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../rock/r6.png" width="34" height="261"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="228" name="g5" tilewidth="27" tileheight="257" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../glass/g5.png" width="27" height="257"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="229" name="Slingshot2" tilewidth="331" tileheight="547" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../Slingshot2.png" width="331" height="547"/>
+  </tile>
+ </tileset>
+ <layer id="2" name="Background" width="35" height="20">
+  <data encoding="csv">
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,
+47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47
+</data>
+ </layer>
+ <layer id="4" name="Sky" width="35" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,101,102,103,104,0,0,0,0,0,0,0,0,0,0,0,174,175,176,177,178,179,0,0,0,0,0,0,
+0,0,151,152,153,154,0,0,111,112,113,114,0,0,0,0,0,0,0,0,0,0,0,184,185,186,187,188,189,0,101,102,103,104,0,
+0,0,161,162,163,164,0,0,0,0,0,0,0,144,145,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,112,113,114,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,121,122,123,124,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,105,106,107,108,0,0,0,0,0,0,0,0,0,0,0,0,131,132,133,134,0,0,0,0,0,155,156,0,0,0,0,0,0,0,
+0,115,116,117,118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,166,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,141,142,143,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,156,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,166,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <group id="9" name="objects">
+  <objectgroup id="3" name="slingshot">
+   <object id="31" gid="229" x="364.186" y="1007.69" width="138.083" height="228.192"/>
+  </objectgroup>
+  <objectgroup id="5" name="wood">
+   <object id="34" gid="226" x="1676.5" y="989.333" width="29" height="310"/>
+   <object id="35" gid="211" x="1676" y="681.333" width="260" height="28"/>
+   <object id="36" gid="215" x="1727" y="390.333" width="166" height="31"/>
+   <object id="37" gid="215" x="1775.33" y="654" width="71.3333" height="31"/>
+   <object id="38" gid="215" x="1737.33" y="820" width="138" height="31"/>
+   <object id="39" gid="215" x="1742.33" y="978.333" width="130" height="31"/>
+   <object id="40" gid="226" x="1907" y="986.333" width="29" height="306"/>
+   <object id="41" gid="226" x="1727.33" y="653.666" width="29" height="264"/>
+   <object id="42" gid="226" x="1863" y="654.333" width="29" height="264"/>
+   <object id="43" gid="226" x="1796.33" y="359.666" width="29" height="66"/>
+  </objectgroup>
+  <objectgroup id="6" name="glass">
+   <object id="44" gid="228" x="1742.17" y="947.833" width="27" height="128.333"/>
+   <object id="45" gid="228" x="1844.83" y="947.167" width="27" height="129"/>
+  </objectgroup>
+  <objectgroup id="7" name="red">
+   <object id="46" gid="223" x="309.977" y="979.906" width="68.4741" height="65.6667"/>
+   <object id="47" gid="223" x="231.46" y="979.79" width="66.8425" height="64.102"/>
+   <object id="48" gid="223" x="149.548" y="978.427" width="64" height="61.376"/>
+  </objectgroup>
+  <objectgroup id="8" name="small pig">
+   <object id="49" gid="218" x="1760.05" y="623.833" width="95.9079" height="94.3333"/>
+  </objectgroup>
+ </group>
+ <layer id="1" name="Ground" width="35" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,33,32,
+4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,
+1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,
+2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,
+1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3
+</data>
+ </layer>
+</map>
