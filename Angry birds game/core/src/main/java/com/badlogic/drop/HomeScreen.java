@@ -22,19 +22,18 @@ public class HomeScreen implements Screen {
     private Main game;
     private OrthographicCamera camera;
     private FitViewport viewport;
-    public Stage stage;
+    public static Stage stage;
     Image background;
     ImageButton settings;
     ImageButton play;
     Settings settingsPopup;
     public static boolean isSettings = false;
-    Music music;
+
+//    Music music;
 
     public HomeScreen (Main game) {
         this.game = game;
-//        music=Gdx.audio.newMusic(Gdx.files.internal("mahesh_dalle.mp3"));
-//        music.setLooping(true);
-//        music.play();
+
         camera = new OrthographicCamera();
         viewport=new FitViewport(Main.w_width,Main.w_height,camera);
         stage = new Stage(viewport);
@@ -43,7 +42,7 @@ public class HomeScreen implements Screen {
         background.setPosition(0,0);
         background.setSize(Main.w_width,Main.w_height);
         stage.addActor(background);
-        settingsPopup = new Settings(game,this);
+        settingsPopup = new Settings(game);
 
         //settings button-
         Texture texture = new Texture("settings.png");
@@ -60,6 +59,7 @@ public class HomeScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 // Code to open settings screen
                 System.out.println("Settings button clicked!");
+                if(Main.isSound) Main.sound.play();
                 isSettings = true;
                 Gdx.input.setInputProcessor(settingsPopup.stage);
 
@@ -96,6 +96,7 @@ public class HomeScreen implements Screen {
         play.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 // Code to open settings screen
+                if(Main.isSound) Main.sound.play();
                 System.out.println("Settings button clicked!");
                 game.setScreen(new SelectLevel(game));
             }

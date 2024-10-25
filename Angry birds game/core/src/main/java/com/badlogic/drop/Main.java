@@ -1,7 +1,10 @@
 package com.badlogic.drop;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -16,11 +19,20 @@ public class Main extends Game {
 
     public static boolean isSound=true;
     public static boolean isMusic=true;
+    public static Music music;
+    public static Sound sound;
 
 
 
     @Override
     public void create() {
+        music= Gdx.audio.newMusic(Gdx.files.internal("title_song.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.5f);
+
+        sound=Gdx.audio.newSound(Gdx.files.internal("click.mp3"));
+
+
 
 //        viewport = new FitViewport(800, 600,camera);
         batch = new SpriteBatch();

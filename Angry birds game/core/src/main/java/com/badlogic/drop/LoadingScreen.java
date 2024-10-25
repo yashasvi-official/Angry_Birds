@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import static com.badlogic.drop.Main.music;
+
 public class LoadingScreen implements Screen{
 
     private AssetManager asset;
@@ -80,6 +82,7 @@ public class LoadingScreen implements Screen{
 
         if(asset.update() && loadingTime>=totalTime){
             game.setScreen(new HomeScreen(game));
+            music.play();
 
         }
 

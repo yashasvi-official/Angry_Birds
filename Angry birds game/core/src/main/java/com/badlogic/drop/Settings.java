@@ -28,7 +28,7 @@ public class Settings implements Disposable {
     private final TextureRegionDrawable musicOnDrawable;
     private final TextureRegionDrawable musicOffDrawable;
 
-    public Settings(Main game, HomeScreen homeScreen) {
+    public Settings(Main game) {
         this.game = game;
 
         // Initialize camera and viewport with fixed dimensions
@@ -63,7 +63,7 @@ public class Settings implements Disposable {
         sound = createSoundButton();
         music = createMusicButton();
         about = createAboutButton();
-        exit = createExitButton(background, homeScreen);
+        exit = createExitButton(background);
 
         setupTable();
         stage.addActor(popUpTable);
@@ -102,6 +102,7 @@ public class Settings implements Disposable {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
                 Main.isSound = !Main.isSound;
                 button.getStyle().up = Main.isSound ? soundOnDrawable : soundOffDrawable;
             }
@@ -128,7 +129,7 @@ public class Settings implements Disposable {
         return new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("about.png"))));
     }
 
-    private ImageButton createExitButton(Image background, HomeScreen homeScreen) {
+    private ImageButton createExitButton(Image background) {
         TextureRegionDrawable exitDrawable = new TextureRegionDrawable(new Texture(Gdx.files.internal("cross.png")));
         ImageButton exitButton = new ImageButton(exitDrawable);
 
@@ -141,8 +142,16 @@ public class Settings implements Disposable {
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                HomeScreen.isSettings = false;
-                Gdx.input.setInputProcessor(homeScreen.stage);
+                if(Main.isSound) Main.sound.play();
+                if(HomeScreen.isSettings){
+                    HomeScreen.isSettings = false;
+                    Gdx.input.setInputProcessor(HomeScreen.stage);
+
+                }
+                else if(SelectLevel.isSettings){
+                    SelectLevel.isSettings = false;
+                    Gdx.input.setInputProcessor(SelectLevel.stage);
+                }
             }
         });
         return exitButton;

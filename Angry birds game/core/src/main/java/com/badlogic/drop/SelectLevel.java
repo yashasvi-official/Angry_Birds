@@ -25,16 +25,20 @@ public class SelectLevel implements Screen {
     Image background;
     FitViewport viewport;
     OrthographicCamera camera;
-    Stage stage;
+    public static Stage stage;
     Table table;
     private Skin skin;
     public Sprite sprite;
     ImageButton backButton;
     ImageButton settings;
+    public static boolean isSettings=false;
+
+    Settings settingPopup;
 
     Label heading;
     public SelectLevel (Main game) {
         this.game = game;
+        settingPopup=new Settings(game);
         skin=new Skin(Gdx.files.internal("final_skin/final_skin.json"));
         camera = new OrthographicCamera();
         viewport=new FitViewport(Main.w_width, Main.w_height, camera);
@@ -44,7 +48,7 @@ public class SelectLevel implements Screen {
 //        sprite=new Sprite(sling);
 //        sprite.setCenter(300,300);
 
-        Texture backTexture = new Texture(Gdx.files.internal("home.png"));
+        Texture backTexture = new Texture(Gdx.files.internal("select_level.png"));
         background = new Image(backTexture);
         stage.addActor(background);
 
@@ -69,6 +73,7 @@ public class SelectLevel implements Screen {
 
         backButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                if(Main.isSound) Main.sound.play();
                 game.setScreen(new  HomeScreen(game));
             }
         });
@@ -85,7 +90,10 @@ public class SelectLevel implements Screen {
         settings.setPosition(Main.w_width- settings.getWidth() - 20, Main.w_height - settings.getHeight() - 20);
         settings.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                if(Main.isSound) Main.sound.play();
                 System.out.println("settings pressed");
+                isSettings=true;
+                Gdx.input.setInputProcessor(settingPopup.stage);
             }
 
         });
@@ -120,7 +128,7 @@ public class SelectLevel implements Screen {
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
 
-
+                    if(Main.isSound) Main.sound.play();
                     game.setScreen(Level.levels.get(levelIndex));
                 }
             });
@@ -149,6 +157,10 @@ public class SelectLevel implements Screen {
 //        game.batch.begin();
 //        sprite.draw(game.batch);
 //        game.batch.end();
+        if(isSettings){
+            settingPopup.stage.act(delta);
+            settingPopup.stage.draw();
+        }
 
 
     }
