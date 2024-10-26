@@ -1,14 +1,12 @@
 package com.badlogic.drop;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -21,9 +19,18 @@ public class Level implements Screen {
     private OrthographicCamera camera;
     private TmxMapLoader mapLoader;
     private TiledMap map;
-    private CustomMapRenderer renderer;
+    private ImprovedRenderer renderer;
+    public World world;
+    public static Box2DDebugRenderer rendererDebug=new Box2DDebugRenderer();
+
+    public List<Pig> pigs;
+    public List<Bird> birds;
+    public List<Material> blocks;
+
+
 
     public static List<Level> levels = new ArrayList<Level>();
+
 
 
 
@@ -35,6 +42,11 @@ public class Level implements Screen {
 //        map = mapLoader.load("level1export.tmx");
 //        renderer=new CustomMapRenderer(map,game.batch);
         camera.position.set(viewport.getWorldWidth()/2,viewport.getWorldHeight()/2,0);
+        world=new World(new Vector2(0,0),true);
+        pigs=new ArrayList<>();
+        birds=new ArrayList<>();
+        blocks=new ArrayList<>();
+
 
 
 
@@ -52,9 +64,24 @@ public class Level implements Screen {
         Maps.createMaps();
         for(TiledMap map:Maps.maps){
             Level obj=new Level(game);
+
             obj.map=map;
-            obj.renderer=new CustomMapRenderer(map,game.batch);
+            SmallPig.createSmallPig(obj.map,obj);
+            SoldierPig.createSoldierPig(obj.map,obj);
+            KingPig.createKingPig(obj.map,obj);
+            Glass.createGlass(obj.map,obj);
+            Wood.createWood(obj.map,obj);
+            Rock.createrock(obj.map,obj);
+
+            Red.createRed(obj.map,obj);
+            Blue.createBlue(obj.map,obj);
+            Yellow.createYellow(obj.map,obj);
+            obj.renderer=new ImprovedRenderer(map,game.batch,obj);
+
+
+
             levels.add(obj);
+
 
         }
 
@@ -79,7 +106,11 @@ public class Level implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         ScreenUtils.clear(0,0,0,0);
         renderer.setView(camera);
+
         renderer.render();
+        rendererDebug.render(world,camera.combined);
+
+
 
 
 

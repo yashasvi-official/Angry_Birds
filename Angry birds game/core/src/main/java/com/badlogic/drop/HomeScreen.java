@@ -49,8 +49,14 @@ public class HomeScreen implements Screen {
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
 
-        TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
-        settings = new ImageButton(drawable);
+        TextureRegionDrawable settingUp = new TextureRegionDrawable(texture);
+
+        TextureRegionDrawable settingHover = new TextureRegionDrawable(new Texture("settings_hover.png"));
+        ImageButton.ImageButtonStyle settingStyle=new ImageButton.ImageButtonStyle();
+        settingStyle.up = settingUp;
+        settingStyle.over = settingHover;
+
+        settings = new ImageButton(settingStyle);
 
         settings.setPosition(Main.w_width- settings.getWidth() - 20, Main.w_height - settings.getHeight() - 20);
 
@@ -60,6 +66,7 @@ public class HomeScreen implements Screen {
                 // Code to open settings screen
                 System.out.println("Settings button clicked!");
                 if(Main.isSound) Main.sound.play();
+
                 isSettings = true;
                 Gdx.input.setInputProcessor(settingsPopup.stage);
 

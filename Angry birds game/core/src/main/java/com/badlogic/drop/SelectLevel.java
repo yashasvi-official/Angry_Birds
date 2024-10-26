@@ -67,8 +67,13 @@ public class SelectLevel implements Screen {
         stage.addActor(heading);
 
         //back button-
-        TextureRegionDrawable back=new TextureRegionDrawable(new Texture("back.png"));
-        backButton = new ImageButton(back);
+        TextureRegionDrawable backUp=new TextureRegionDrawable(new Texture("back.png"));
+        TextureRegionDrawable backHover=new TextureRegionDrawable(new Texture("back_hover.png"));
+        ImageButton.ImageButtonStyle style=new ImageButton.ImageButtonStyle();
+        style.up=backUp;
+        style.over=backHover;
+
+        backButton = new ImageButton(style);
         backButton.setPosition(20, Main.w_height - backButton.getHeight() - 20);
 
         backButton.addListener(new ClickListener() {
@@ -84,13 +89,20 @@ public class SelectLevel implements Screen {
 //        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
 
-        TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
-        settings = new ImageButton(drawable);
+        TextureRegionDrawable settingUp = new TextureRegionDrawable(texture);
+
+        TextureRegionDrawable settingHover = new TextureRegionDrawable(new Texture("settings_hover.png"));
+        ImageButton.ImageButtonStyle settingStyle=new ImageButton.ImageButtonStyle();
+        settingStyle.up = settingUp;
+        settingStyle.over = settingHover;
+
+        settings = new ImageButton(settingStyle);
 
         settings.setPosition(Main.w_width- settings.getWidth() - 20, Main.w_height - settings.getHeight() - 20);
         settings.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 if(Main.isSound) Main.sound.play();
+
                 System.out.println("settings pressed");
                 isSettings=true;
                 Gdx.input.setInputProcessor(settingPopup.stage);
