@@ -63,7 +63,7 @@ public class HomeScreen implements Screen {
 
         settings.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
-                // Code to open settings screen
+
                 System.out.println("Settings button clicked!");
                 if(Main.isSound) Main.sound.play();
 

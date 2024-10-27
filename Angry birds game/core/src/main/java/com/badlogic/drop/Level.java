@@ -1,5 +1,6 @@
 package com.badlogic.drop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -17,6 +18,14 @@ public class Level implements Screen {
     private Main game;
     private FitViewport viewport;
     private OrthographicCamera camera;
+    private int level;
+    public  Hud hud;
+
+    public static int count=1;
+
+    public boolean isGamePaused=false;
+    public GamePaused gamePaused;
+
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private ImprovedRenderer renderer;
@@ -30,6 +39,13 @@ public class Level implements Screen {
 
 
     public static List<Level> levels = new ArrayList<Level>();
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    public int getLevel() {
+        return level;
+    }
 
 
 
@@ -46,6 +62,8 @@ public class Level implements Screen {
         pigs=new ArrayList<>();
         birds=new ArrayList<>();
         blocks=new ArrayList<>();
+        gamePaused=new GamePaused(game,this);
+
 
 
 
@@ -66,6 +84,10 @@ public class Level implements Screen {
             Level obj=new Level(game);
 
             obj.map=map;
+            obj.setLevel(count);
+            count++;
+            obj.hud=new Hud(game,obj);
+
             SmallPig.createSmallPig(obj.map,obj);
             SoldierPig.createSoldierPig(obj.map,obj);
             KingPig.createKingPig(obj.map,obj);
@@ -94,6 +116,9 @@ public class Level implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(hud.stage);
+
+
 
     }
 
@@ -104,11 +129,20 @@ public class Level implements Screen {
         camera.update();
         viewport.apply();
         game.batch.setProjectionMatrix(camera.combined);
+//        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
         ScreenUtils.clear(0,0,0,0);
         renderer.setView(camera);
 
+
         renderer.render();
         rendererDebug.render(world,camera.combined);
+        hud.stage.draw();
+        if(isGamePaused) {
+            Gdx.input.setInputProcessor(gamePaused.stage);
+            gamePaused.stage.act();
+            gamePaused.stage.draw();
+        }
 
 
 

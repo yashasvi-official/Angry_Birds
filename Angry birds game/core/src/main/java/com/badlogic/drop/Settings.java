@@ -31,7 +31,7 @@ public class Settings implements Disposable {
     public Settings(Main game) {
         this.game = game;
 
-        // Initialize camera and viewport with fixed dimensions
+
         camera = new OrthographicCamera();
         viewport = new FitViewport(Main.w_width, Main.w_height, camera);
         stage = new Stage(viewport);
@@ -59,7 +59,7 @@ public class Settings implements Disposable {
         musicOnDrawable = new TextureRegionDrawable(new Texture(Gdx.files.internal("music_on.png")));
         musicOffDrawable = new TextureRegionDrawable(new Texture(Gdx.files.internal("music_off.png")));
 
-        // Create buttons
+        // Creating buttons
         sound = createSoundButton();
         music = createMusicButton();
         about = createAboutButton();
@@ -104,6 +104,8 @@ public class Settings implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
 
                 Main.isSound = !Main.isSound;
+
+
                 button.getStyle().up = Main.isSound ? soundOnDrawable : soundOffDrawable;
             }
         });
@@ -118,7 +120,14 @@ public class Settings implements Disposable {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
                 Main.isMusic = !Main.isMusic;
+                if(Main.isMusic){
+                    Main.music.play();
+                }
+                else{
+                    Main.music.pause();
+                }
                 button.getStyle().up = Main.isMusic ? musicOnDrawable : musicOffDrawable;
             }
         });
@@ -133,7 +142,7 @@ public class Settings implements Disposable {
         TextureRegionDrawable exitDrawable = new TextureRegionDrawable(new Texture(Gdx.files.internal("cross.png")));
         ImageButton exitButton = new ImageButton(exitDrawable);
 
-        // Position exit button relative to background
+
         exitButton.setPosition(
             (viewport.getWorldWidth() + background.getWidth()) / 2 - (3*exitButton.getWidth()/4),
             (Main.w_height + background.getHeight()) / 2 - (3*exitButton.getHeight()/4)

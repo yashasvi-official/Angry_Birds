@@ -61,14 +61,13 @@ public class LoadingScreen implements Screen{
             skin.newDrawable("white", Color.GREEN)      // Knob (progress)
         );
 
-        // Create a ProgressBar with defined min, max, and step values
-        progressBar = new ProgressBar(0f, 5f, 0.01f, false, skin);  // Min, Max, Step, vertical (false)
+
+        progressBar = new ProgressBar(0f, 5f, 0.01f, false, skin);
 
         // Set width and height for the progress bar
-        progressBar.setSize(450, 0); // Adjust the height to a visible size
-        progressBar.setPosition((Main.w_width - progressBar.getWidth()) / 2, Main.w_height/10); // Center it horizontally
+        progressBar.setSize(450, 0);
+        progressBar.setPosition((Main.w_width - progressBar.getWidth()) / 2, Main.w_height/10);
 
-        // Add ProgressBar to the stage
         stage.addActor(progressBar);
     }
 

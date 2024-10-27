@@ -137,6 +137,7 @@ public class SelectLevel implements Screen {
             TextButton button = new TextButton("Level"+Integer.toString(i),skin);
 //            button.setSize(300,400);
             final int levelIndex=i-1;
+
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
 
