@@ -1,6 +1,7 @@
 package com.badlogic.drop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,8 +27,13 @@ public class HomeScreen implements Screen {
     Image background;
     ImageButton settings;
     ImageButton play;
+    ImageButton journal;
     Settings settingsPopup;
     public static boolean isSettings = false;
+    public static boolean isJournal=false;
+    Journal journalPopup;
+
+
 
 //    Music music;
 
@@ -43,6 +49,7 @@ public class HomeScreen implements Screen {
         background.setSize(Main.w_width,Main.w_height);
         stage.addActor(background);
         settingsPopup = new Settings(game);
+        journalPopup=new Journal(this);
 
         //settings button-
         Texture texture = new Texture("settings.png");
@@ -111,6 +118,22 @@ public class HomeScreen implements Screen {
         });
         stage.addActor(play);
 
+        TextureRegionDrawable journalText=new TextureRegionDrawable(new Texture("journalicon.png"));
+        journal=new ImageButton(journalText);
+
+        journal.setPosition(Main.w_width- settings.getWidth() - 20, 20);
+        journal.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y) {
+                if(Main.isSound) Main.sound.play();
+                isJournal=true;
+
+            }
+        });
+
+
+        stage.addActor(journal);
+
+
 
 
 
@@ -126,10 +149,18 @@ public class HomeScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
+
+
+
         camera.update();
         ScreenUtils.clear(0,0,0,0);
         stage.act(delta);
         stage.draw();
+        if(isJournal){
+            game.setScreen(journalPopup);
+        }
+
 
         if(isSettings){
 //            settingsPopup.stage.act(delta);

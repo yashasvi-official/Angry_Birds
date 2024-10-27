@@ -10,9 +10,13 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.Input;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class Level implements Screen {
     private Main game;
@@ -24,7 +28,9 @@ public class Level implements Screen {
     public static int count=1;
 
     public boolean isGamePaused=false;
+    public boolean isLevelCleared=false;
     public GamePaused gamePaused;
+    public LevelClearedScreen levelClearedScreen;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -63,6 +69,7 @@ public class Level implements Screen {
         birds=new ArrayList<>();
         blocks=new ArrayList<>();
         gamePaused=new GamePaused(game,this);
+        levelClearedScreen=new LevelClearedScreen(game,this);
 
 
 
@@ -124,6 +131,12 @@ public class Level implements Screen {
 
     @Override
     public void render(float delta) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+
+//            Gdx.input.setInputProcessor(levelClearedScreen.stage);
+            isLevelCleared=true;
+
+        }
 
 
         camera.update();
@@ -138,6 +151,10 @@ public class Level implements Screen {
         renderer.render();
         rendererDebug.render(world,camera.combined);
         hud.stage.draw();
+        if(isLevelCleared){
+            Gdx.input.setInputProcessor(levelClearedScreen.stage);
+            levelClearedScreen.render(delta);
+        }
         if(isGamePaused) {
             Gdx.input.setInputProcessor(gamePaused.stage);
             gamePaused.stage.act();

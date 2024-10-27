@@ -32,10 +32,11 @@ public class SelectLevel implements Screen {
     ImageButton backButton;
     ImageButton settings;
     public static boolean isSettings=false;
+    Image heading;
 
     Settings settingPopup;
 
-    Label heading;
+//    Label heading;
     public SelectLevel (Main game) {
         this.game = game;
         settingPopup=new Settings(game);
@@ -53,17 +54,20 @@ public class SelectLevel implements Screen {
         stage.addActor(background);
 
 //        heading = new Label("Select Level", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("final_skin/angrybirds-regular(7).fnt")), Color.BLACK));
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = skin.getFont("angrybirdswhite");
-        labelStyle.fontColor = skin.getColor("brown");
+//        Label.LabelStyle labelStyle = new Label.LabelStyle();
+//        labelStyle.font = skin.getFont("angrybirdswhite");
+//        labelStyle.fontColor = skin.getColor("brown");
+//
+//
+//
+//        Label heading = new Label("Select Level", labelStyle);
+//        heading.setFontScale(2);
+
+        heading=new Image(new Texture("selectLevel.png"));
 
 
-
-        Label heading = new Label("Select Level", labelStyle);
-        heading.setFontScale(2);
-
-        heading.setPosition((viewport.getWorldWidth()-heading.getWidth()*2)/2,(viewport.getWorldHeight()-viewport.getWorldHeight()/5));
-
+//        heading.setPosition((viewport.getWorldWidth()-heading.getWidth()*2)/2,(viewport.getWorldHeight()-viewport.getWorldHeight()/5));
+        heading.setPosition((viewport.getWorldWidth()-heading.getWidth())/2-50,5*viewport.getWorldHeight()/8 );
         stage.addActor(heading);
 
         //back button-
@@ -124,7 +128,7 @@ public class SelectLevel implements Screen {
     private void createLevel(Table table) {
         table.top();
 
-        table.padTop(400);
+        table.padTop(450);
         table.padLeft(200);
         table.padRight(200);
 

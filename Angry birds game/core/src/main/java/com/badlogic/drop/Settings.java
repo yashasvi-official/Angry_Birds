@@ -27,6 +27,7 @@ public class Settings implements Disposable {
     private final TextureRegionDrawable soundOffDrawable;
     private final TextureRegionDrawable musicOnDrawable;
     private final TextureRegionDrawable musicOffDrawable;
+    private Image mascot;
 
     public Settings(Main game) {
         this.game = game;
@@ -65,9 +66,18 @@ public class Settings implements Disposable {
         about = createAboutButton();
         exit = createExitButton(background);
 
+        Texture redCartoon=new Texture(Gdx.files.internal("redCartoon.png"));
+        mascot = new Image(redCartoon);
+        mascot.setPosition(
+            (viewport.getWorldWidth() - background.getWidth()) / 2 - (1*mascot.getWidth()/7),
+            (Main.w_height + background.getHeight()) / 2 - (1*mascot.getHeight()/2)
+        );
+
         setupTable();
         stage.addActor(popUpTable);
         stage.addActor(exit);
+        stage.addActor(mascot);
+
     }
 
     private void setupTable() {
