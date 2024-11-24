@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
@@ -65,6 +66,7 @@ public class Wood extends Material{
     BodyDef bdef;
     FixtureDef fdef;
     PolygonShape shape;
+    CircleShape cshape;
     Body body;
 
     public Wood(float health){
@@ -72,6 +74,8 @@ public class Wood extends Material{
         bdef = new BodyDef();
         fdef = new FixtureDef();
         shape= new PolygonShape();
+        cshape= new CircleShape();
+
 
     }
 
@@ -90,30 +94,91 @@ public class Wood extends Material{
                         if (obj instanceof TextureMapObject) {
                             TextureMapObject tmo = (TextureMapObject) obj;
 
-                            float width = (float) tmo.getProperties().get("width", Float.class);
-                            float height = (float) tmo.getProperties().get("height", Float.class);
-                            float x = tmo.getX();
-                            float y = tmo.getY();
+                            boolean shapePresent=tmo.getProperties().containsKey("shape");
+                            if(!shapePresent){
+                                float width = (float) tmo.getProperties().get("width", Float.class);
+                                float height = (float) tmo.getProperties().get("height", Float.class);
+                                float x = tmo.getX();
+                                float y = tmo.getY();
 
 
 
-                            Wood wood = new Wood(5);
-                            wood.width=width;
-                            wood.height=height;
+                                Wood wood = new Wood(5);
+                                wood.width=width;
+                                wood.height=height;
 
-                            wood.texture=tmo.getTextureRegion();
+                                wood.texture=tmo.getTextureRegion();
 
-                            wood.bdef.type = BodyDef.BodyType.DynamicBody;
-                            wood.bdef.position.set(x + width / 2, y + height / 2);
-                            wood.body = level.world.createBody(wood.bdef);
+                                wood.bdef.type = BodyDef.BodyType.DynamicBody;
+                                wood.bdef.position.set(x + width / 2, y + height / 2);
+                                wood.body = level.world.createBody(wood.bdef);
 
-                            wood.shape.setAsBox(width/2, height/2);
-                            wood.fdef.shape = wood.shape;
-                            wood.body.createFixture(wood.fdef);
+                                wood.shape.setAsBox(width/2, height/2);
+                                wood.fdef.shape = wood.shape;
+                                wood.body.createFixture(wood.fdef);
 
-                            level.blocks.add(wood);
+                                level.blocks.add(wood);
+                                wood.shape.dispose();
 
-                            wood.shape.dispose();
+                            }
+                            else{
+                                String shapeType=(String) tmo.getProperties().get("shape");
+                                if(shapeType.equals("circle")){
+                                    float width= (float) tmo.getProperties().get("width", Float.class);
+                                    float height= (float) tmo.getProperties().get("height", Float.class);
+                                    float x = tmo.getX();
+                                    float y = tmo.getY();
+
+                                    Wood wood = new Wood(5);
+
+                                    wood.width=width;
+                                    wood.height=height;
+                                    wood.x=x;
+                                    wood.y=y;
+                                    wood.texture=tmo.getTextureRegion();
+
+                                    wood.bdef.type = BodyDef.BodyType.DynamicBody;
+                                    wood.bdef.position.set(x + width / 2, y + height / 2);
+                                    wood.body = level.world.createBody(wood.bdef);
+                                    wood.cshape.setRadius(width / 2);
+                                    wood.fdef.shape = wood.cshape;
+                                    wood.body.createFixture(wood.fdef);
+                                    level.blocks.add(wood);
+                                    wood.cshape.dispose();
+
+
+                                }
+                                else if(shapeType.equals("triangle")){
+                                    float width= (float) tmo.getProperties().get("width", Float.class);
+                                    float height= (float) tmo.getProperties().get("height", Float.class);
+                                    float x = tmo.getX();
+                                    float y = tmo.getY();
+
+                                    Wood wood = new Wood(5);
+                                    float[] vertices= new float[]{
+                                        -width/2,0,
+                                        width/2,0,
+                                        0,height
+
+                                    };
+                                    wood.shape.set(vertices);
+                                    wood.texture=tmo.getTextureRegion();
+
+                                    wood.bdef.type = BodyDef.BodyType.DynamicBody;
+                                    wood.bdef.position.set(x + width / 2, y + height / 2);
+                                    wood.body = level.world.createBody(wood.bdef);
+                                    wood.fdef.shape = wood.shape;
+                                    wood.body.createFixture(wood.fdef);
+                                    level.blocks.add(wood);
+                                    wood.shape.dispose();
+
+
+
+                                }
+
+                            }
+
+
                         }
                     }
 

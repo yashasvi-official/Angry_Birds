@@ -64,7 +64,7 @@ public class Level implements Screen {
 //        map = mapLoader.load("level1export.tmx");
 //        renderer=new CustomMapRenderer(map,game.batch);
         camera.position.set(viewport.getWorldWidth()/2,viewport.getWorldHeight()/2,0);
-        world=new World(new Vector2(0,0),true);
+        world=new World(new Vector2(0,-10f),true);
         pigs=new ArrayList<>();
         birds=new ArrayList<>();
         blocks=new ArrayList<>();
@@ -105,6 +105,7 @@ public class Level implements Screen {
             Red.createRed(obj.map,obj);
             Blue.createBlue(obj.map,obj);
             Yellow.createYellow(obj.map,obj);
+            Ground.createGround(obj.map,obj);
             obj.renderer=new ImprovedRenderer(map,game.batch,obj);
 
 
@@ -131,6 +132,8 @@ public class Level implements Screen {
 
     @Override
     public void render(float delta) {
+        world.step(1/60f,6,2);
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 
 //            Gdx.input.setInputProcessor(levelClearedScreen.stage);

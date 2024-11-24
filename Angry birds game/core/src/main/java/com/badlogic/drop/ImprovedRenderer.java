@@ -154,7 +154,7 @@ public class ImprovedRenderer extends OrthogonalTiledMapRenderer {
 
                     }
                 }
-        }
+            }
 
         }
         batch.end();

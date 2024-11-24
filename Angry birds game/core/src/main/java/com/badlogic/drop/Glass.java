@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
@@ -16,6 +17,8 @@ public class Glass extends Material{
     private TextureRegion texture;
     private float height;
     private float width;
+    private float x;
+    private float y;
 
     public TextureRegion getTexture() {
         return texture;
@@ -49,7 +52,9 @@ public class Glass extends Material{
     BodyDef bdef;
     FixtureDef fdef;
     PolygonShape shape;
+    CircleShape cshape;
     Body body;
+
 
     public Glass(float health){
         super(health);
@@ -57,6 +62,7 @@ public class Glass extends Material{
         bdef= new BodyDef();
         fdef= new FixtureDef();
         shape= new PolygonShape();
+        cshape= new CircleShape();
 
     }
 
@@ -76,30 +82,96 @@ public class Glass extends Material{
                         if (obj instanceof TextureMapObject) {
                             TextureMapObject tmo = (TextureMapObject) obj;
 
-                            float width = (float) tmo.getProperties().get("width", Float.class);
-                            float height = (float) tmo.getProperties().get("height", Float.class);
-                            float x = tmo.getX();
-                            float y = tmo.getY();
+                            boolean shapePresent= tmo.getProperties().containsKey("shape");
+                            if(!shapePresent){
+                                float width = (float) tmo.getProperties().get("width", Float.class);
+                                float height = (float) tmo.getProperties().get("height", Float.class);
+                                float x = tmo.getX();
+                                float y = tmo.getY();
 
 
 
-                            Glass glass=new Glass(5);
+                                Glass glass=new Glass(5);
 
-                            glass.width=width;
-                            glass.height=height;
-                            glass.texture=tmo.getTextureRegion();
+                                glass.width=width;
+                                glass.height=height;
+                                glass.texture=tmo.getTextureRegion();
 
-                            glass.bdef.type = BodyDef.BodyType.DynamicBody;
-                            glass.bdef.position.set(x + width / 2, y + height / 2);
-                            glass.body = level.world.createBody(glass.bdef);
+                                glass.bdef.type = BodyDef.BodyType.DynamicBody;
+                                glass.bdef.position.set(x + width / 2, y + height / 2);
+                                glass.body = level.world.createBody(glass.bdef);
 
-                            glass.shape.setAsBox(width/2, height/2);
-                            glass.fdef.shape = glass.shape;
-                            glass.body.createFixture(glass.fdef);
+                                glass.shape.setAsBox(width/2, height/2);
+                                glass.fdef.shape = glass.shape;
+                                glass.body.createFixture(glass.fdef);
 
-                            level.blocks.add(glass);
+                                level.blocks.add(glass);
 
-                            glass.shape.dispose();
+                                glass.shape.dispose();
+
+                            }
+                            else {
+                                String shapeType= (String) tmo.getProperties().get("shape");
+                                // String shapeType=(String) tmo.getProperties().get("shape");
+
+                                if(shapeType.equals("circle")){
+                                    float width= (float) tmo.getProperties().get("width", Float.class);
+                                    float height= (float) tmo.getProperties().get("height", Float.class);
+                                    float x = tmo.getX();
+                                    float y = tmo.getY();
+
+                                    Glass glass = new Glass(5);
+
+                                    glass.width=width;
+                                    glass.height=height;
+                                    glass.x=x;
+                                    glass.y=y;
+                                    glass.texture=tmo.getTextureRegion();
+
+                                    glass.bdef.type = BodyDef.BodyType.DynamicBody;
+                                    glass.bdef.position.set(x + width / 2, y + height / 2);
+                                    glass.body = level.world.createBody(glass.bdef);
+                                    glass.cshape.setRadius(width / 2);
+                                    glass.fdef.shape = glass.cshape;
+                                    glass.body.createFixture(glass.fdef);
+                                    level.blocks.add(glass);
+                                    glass.cshape.dispose();
+
+
+                                }
+                                else if(shapeType.equals("triangle")){
+                                    float width= (float) tmo.getProperties().get("width", Float.class);
+                                    float height= (float) tmo.getProperties().get("height", Float.class);
+                                    float x = tmo.getX();
+                                    float y = tmo.getY();
+
+                                    Glass glass = new Glass(5);
+                                    float[] vertices= new float[]{
+                                        0, 0,                    // Bottom-left
+                                        width, 0,                // Bottom-right
+                                        width / 2, height
+
+                                    };
+                                    glass.shape.set(vertices);
+                                    glass.width=width;
+                                    glass.height=height;
+                                    glass.x=x;
+                                    glass.y=y;
+                                    glass.texture=tmo.getTextureRegion();
+
+                                    glass.bdef.type = BodyDef.BodyType.DynamicBody;
+                                    glass.bdef.position.set(x, y);
+                                    glass.body = level.world.createBody(glass.bdef);
+                                    glass.fdef.shape = glass.shape;
+                                    glass.body.createFixture(glass.fdef);
+                                    level.blocks.add(glass);
+                                    glass.shape.dispose();
+
+
+
+                                }
+                            }
+
                         }
                     }
 
