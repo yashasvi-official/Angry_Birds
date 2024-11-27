@@ -1,5 +1,6 @@
 package com.badlogic.drop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapLayer;
@@ -13,6 +14,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Rock extends Material{
+    //    public boolean toDestroy=false;
+    public static final int rockHealth=4;
+    public static final int rockDamage=3;
 
     private TextureRegion texture;
     private float height;
@@ -56,8 +60,8 @@ public class Rock extends Material{
     Body body;
 
 
-    public Rock(float health){
-        super(health);
+    public Rock(int health,int damage){
+        super(health,damage);
 
         bdef= new BodyDef();
         fdef= new FixtureDef();
@@ -67,6 +71,11 @@ public class Rock extends Material{
 
     @Override
     public void takeDamage(float damage) {
+        System.out.println("rock is hit!");
+        this.health-=damage;
+        if(this.health<=0){
+            this.toDestroy=true;
+        }
 
     }
 
@@ -89,23 +98,23 @@ public class Rock extends Material{
 
 
 
-                                Rock rock=new Rock(5);
+                                Rock rock=new Rock(rockHealth,rockDamage);
 
                                 rock.width=width;
                                 rock.height=height;
                                 rock.texture=tmo.getTextureRegion();
 
                                 rock.bdef.type = BodyDef.BodyType.DynamicBody;
-                                rock.bdef.position.set(x + width / 2, y + height / 2);
+                                rock.bdef.position.set((x + width / 2)/Main.PPM, (y + height / 2)/Main.PPM);
                                 rock.body = level.world.createBody(rock.bdef);
 
-                                rock.shape.setAsBox(width/2, height/2);
+                                rock.shape.setAsBox((width/2)/Main.PPM, (height/2)/Main.PPM);
                                 rock.fdef.shape = rock.shape;
                                 rock.fdef.density = 1.0f;
                                 rock.fdef.friction = 0.5f;
                                 rock.fdef.restitution = 0.1f;
 
-                                rock.body.createFixture(rock.fdef);
+                                rock.body.createFixture(rock.fdef).setUserData(rock);
                                 level.blocks.add(rock);
 
                                 rock.shape.dispose();
@@ -119,7 +128,7 @@ public class Rock extends Material{
                                     float x = tmo.getX();
                                     float y = tmo.getY();
 
-                                    Rock rock = new Rock(5);
+                                    Rock rock = new Rock(rockHealth,rockDamage);
 
                                     rock.width=width;
                                     rock.height=height;
@@ -128,11 +137,15 @@ public class Rock extends Material{
                                     rock.texture=tmo.getTextureRegion();
 
                                     rock.bdef.type = BodyDef.BodyType.DynamicBody;
-                                    rock.bdef.position.set(x + width / 2, y + height / 2);
+                                    rock.bdef.position.set((x + width / 2)/Main.PPM, (y + height / 2)/Main.PPM);
                                     rock.body = level.world.createBody(rock.bdef);
-                                    rock.cshape.setRadius(width / 2);
+                                    rock.cshape.setRadius((width / 2)/Main.PPM);
                                     rock.fdef.shape = rock.cshape;
-                                    rock.body.createFixture(rock.fdef);
+                                    rock.fdef.density = 1.0f;
+                                    rock.fdef.friction = 0.5f;
+                                    rock.fdef.restitution = 0.1f;
+
+                                    rock.body.createFixture(rock.fdef).setUserData(rock);
                                     level.blocks.add(rock);
                                     rock.cshape.dispose();
 
@@ -144,7 +157,7 @@ public class Rock extends Material{
                                     float x = tmo.getX();
                                     float y = tmo.getY();
 
-                                    Rock rock = new Rock(5);
+                                    Rock rock = new Rock(rockHealth,rockDamage);
                                     float[] vertices= new float[]{
                                         -width/2,0,
                                         width/2,0,
@@ -155,7 +168,7 @@ public class Rock extends Material{
                                     rock.texture=tmo.getTextureRegion();
 
                                     rock.bdef.type = BodyDef.BodyType.DynamicBody;
-                                    rock.bdef.position.set(x + width / 2, y + height / 2);
+                                    rock.bdef.position.set((x + width / 2)/Main.PPM, (y + height / 2)/Main.PPM);
                                     rock.body = level.world.createBody(rock.bdef);
                                     rock.fdef.shape = rock.shape;
                                     rock.body.createFixture(rock.fdef);

@@ -1,5 +1,6 @@
 package com.badlogic.drop;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapLayer;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class Red extends Bird {
+    public static final int givenDamage=2;
+
 
     private TextureRegion texture;
     private float height;
@@ -55,17 +58,32 @@ public class Red extends Bird {
         return y;
     }
 
-    BodyDef bdef;
-    FixtureDef fdef;
-    CircleShape cshape;
-    Body body;
+    // BodyDef bdef;
+    // FixtureDef fdef;
+    // CircleShape cshape;
+    // Body body;
 
     public Red(int damage) {
-        super(damage);
+        super(damage, Color.RED);
 
         bdef = new BodyDef();
         fdef = new FixtureDef();
         cshape = new CircleShape();
+
+    }
+    public void specialAbility(Level level){
+        //do nothing
+        Body body=this.body;
+        float scalingFactor=1.8f;
+
+        float updatedWidth=this.width*scalingFactor;
+        float updatedHeight=this.height*scalingFactor;
+
+        this.width=updatedWidth;
+        this.height=updatedHeight;
+
+        this.cshape.setRadius(updatedWidth);
+        this.damage=4;
 
     }
 
@@ -85,7 +103,7 @@ public class Red extends Bird {
                             float x = tmo.getX();
                             float y = tmo.getY();
 
-                            Red red=new Red(2);
+                            Red red=new Red(givenDamage);
 
                             red.width=width;
                             red.height=height;
@@ -95,12 +113,16 @@ public class Red extends Bird {
 
 
                             //box2d-
-                            red.bdef.type=BodyDef.BodyType.DynamicBody;
-                            red.bdef.position.set(x+width/2, y+height/2);
+                            red.bdef.type=BodyDef.BodyType.StaticBody;
+                            red.bdef.position.set((x+width/2)/Main.PPM, (y+height/2)/Main.PPM);
                             red.body=level.world.createBody(red.bdef);
-                            red.cshape.setRadius(width/2);
+                            red.cshape.setRadius((width/2)/Main.PPM);
                             red.fdef.shape= red.cshape;
-                            red.body.createFixture(red.fdef);
+                            // red.fdef.density = 0.8f; // Mass-related property
+                            red.fdef.friction = 1f; // Affects rotational movement
+//                            red.fdef.restitution = 0.4f; // Controls "bounciness"
+                            // red.body.setLinearDamping(2.0f);
+                            red.body.createFixture(red.fdef).setUserData(red);
 
                             level.birds.add(red);
 

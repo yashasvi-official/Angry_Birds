@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class KingPig extends Pig {
+    public static final int kingHealth=8;
+
 
     private TextureRegion texture;
     private float height;
@@ -70,6 +72,11 @@ public class KingPig extends Pig {
 
     @Override
     public void takeDamage(int damage) {
+        System.out.println("king pig is hit!");
+        this.health-=damage;
+        if(this.health<=0){
+            this.toDestroy = true;
+        }
 
     }
 
@@ -90,7 +97,7 @@ public class KingPig extends Pig {
                             float x = tmo.getX();
                             float y = tmo.getY();
 
-                            KingPig pig=new KingPig(5);
+                            KingPig pig=new KingPig(kingHealth);
                             pig.width=width;
                             pig.height=height;
                             pig.x=x;
@@ -99,11 +106,16 @@ public class KingPig extends Pig {
 
 
                             pig.bdef.type = BodyDef.BodyType.DynamicBody;
-                            pig.bdef.position.set(x + width / 2, y + height / 2);
+                            pig.bdef.position.set((x + width / 2)/Main.PPM, (y + height / 2)/Main.PPM);
                             pig.body = level.world.createBody(pig.bdef);
-                            pig.cshape.setRadius(width / 2);
+                            pig.cshape.setRadius((width / 2)/Main.PPM);
                             pig.fdef.shape = pig.cshape;
-                            pig.body.createFixture(pig.fdef);
+
+                            pig.fdef.density=1f;
+                            pig.fdef.friction=0.5f;
+                            pig.fdef.restitution=0.1f;
+
+                            pig.body.createFixture(pig.fdef).setUserData(pig);
                             level.pigs.add(pig);
 
                             pig.cshape.dispose();

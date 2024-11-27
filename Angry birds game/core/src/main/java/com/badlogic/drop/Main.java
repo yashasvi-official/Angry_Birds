@@ -5,9 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
@@ -21,6 +19,8 @@ public class Main extends Game {
     public static boolean isMusic=true;
     public static Music music;
     public static Sound sound;
+
+    public static final float PPM=100f;
 
 
 
@@ -41,7 +41,9 @@ public class Main extends Game {
         Setup setup=new Setup(this);
 
 //        setScreen(new PlayScreen(this));
-        setScreen(new LoadingScreen(this,assetManager));
+        // setScreen(new LoadingScreen(this,assetManager));
+        setScreen(new HomeScreen(this));
+
     }
     public void render(){
         super.render();

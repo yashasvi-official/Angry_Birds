@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class SoldierPig extends Pig{
+    //    public boolean toDestroy=false;
+    public static final int soldierHealth=6;
 
     private TextureRegion texture;
     private float height;
@@ -73,6 +75,12 @@ public class SoldierPig extends Pig{
 
     @Override
     public void takeDamage(int damage) {
+        System.out.println("Soldier pig is hit");
+        this.health-=damage;
+        if(this.health<=0){
+            this.toDestroy=true;
+            System.out.println("SoldierPig destroyed");
+        }
 
     }
     public static void createSoldierPig(TiledMap map, Level level) {
@@ -91,7 +99,7 @@ public class SoldierPig extends Pig{
                             float x = tmo.getX();
                             float y = tmo.getY();
 
-                            SoldierPig pig = new SoldierPig(5);
+                            SoldierPig pig = new SoldierPig(soldierHealth);
                             pig.width=width;
                             pig.height=height;
                             pig.x=x;
@@ -99,11 +107,15 @@ public class SoldierPig extends Pig{
                             pig.texture=tmo.getTextureRegion();
 
                             pig.bdef.type = BodyDef.BodyType.DynamicBody;
-                            pig.bdef.position.set(x + width / 2, y + height / 2);
+                            pig.bdef.position.set((x + width / 2)/Main.PPM, (y + height / 2)/Main.PPM);
                             pig.body = level.world.createBody(pig.bdef);
-                            pig.cshape.setRadius(width / 2);
+                            pig.cshape.setRadius((width / 2)/Main.PPM);
                             pig.fdef.shape = pig.cshape;
-                            pig.body.createFixture(pig.fdef);
+                            pig.fdef.density=1f;
+                            pig.fdef.friction=0.5f;
+                            pig.fdef.restitution=0.1f;
+
+                            pig.body.createFixture(pig.fdef).setUserData(pig);
                             level.pigs.add(pig);
                             pig.cshape.dispose();
                         }

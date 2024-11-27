@@ -1,6 +1,7 @@
 package com.badlogic.drop;
 
 public abstract class  Pig {
+    public boolean toDestroy=false;
     protected float health;
 
 

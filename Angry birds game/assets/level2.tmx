@@ -274,11 +274,11 @@
    <object id="86" gid="204" x="1898.33" y="771.108" width="71.7527" height="68.441"/>
   </objectgroup>
   <objectgroup id="7" name="red">
-   <object id="46" gid="223" x="309.977" y="979.906" width="68.4741" height="65.6667"/>
+   <object id="46" gid="223" x="207.977" y="979.906" width="68.4741" height="65.6667"/>
   </objectgroup>
   <objectgroup id="14" name="yellow">
-   <object id="79" gid="219" x="218.848" y="989.758" width="81.2727" height="81.2727"/>
-   <object id="80" gid="219" x="124.333" y="991.667" width="84.6667" height="84.6667"/>
+   <object id="79" gid="219" x="143.515" y="985.758" width="67.9394" height="73.2727"/>
+   <object id="80" gid="219" x="63.6663" y="986.334" width="74" height="74"/>
   </objectgroup>
   <objectgroup id="8" name="small pig">
    <object id="49" gid="218" x="1723.72" y="772.593" width="69.9079" height="68.7602"/>

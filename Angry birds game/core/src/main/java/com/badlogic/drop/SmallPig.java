@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmallPig extends Pig{
+    public static final int smallHealth=4;
 
     public static List<SmallPig> smallPigs = new ArrayList<SmallPig>();
 
@@ -71,8 +72,8 @@ public class SmallPig extends Pig{
 
     private float height;
     private float width;
-    private float x;
-    private float y;
+    public float x;
+    public float y;
 
     BodyDef bdef;
     FixtureDef fdef;
@@ -95,7 +96,11 @@ public class SmallPig extends Pig{
 
     }
     public void takeDamage(int damage){
+        System.out.println("small pig is hit");
         health -= damage;
+        if(this.health<=0){
+            this.toDestroy=true;
+        }
 
     }
 
@@ -115,7 +120,8 @@ public class SmallPig extends Pig{
                             float x = tmo.getX();
                             float y = tmo.getY();
 
-                            SmallPig pig=new SmallPig(5);
+                            SmallPig pig=new SmallPig(smallHealth);
+
                             pig.width=width;
                             pig.height=height;
                             pig.x=x;
@@ -123,13 +129,18 @@ public class SmallPig extends Pig{
                             pig.texture=tmo.getTextureRegion();
 
 
+
                             //box2d-
                             pig.bdef.type=BodyDef.BodyType.DynamicBody;
-                            pig.bdef.position.set(x+width/2, y+height/2);
+                            pig.bdef.position.set((x+width/2)/Main.PPM, (y+height/2)/Main.PPM);
                             pig.body=level.world.createBody(pig.bdef);
-                            pig.cshape.setRadius(width/2);
+                            pig.cshape.setRadius((width/2)/Main.PPM);
                             pig.fdef.shape= pig.cshape;
-                            pig.body.createFixture(pig.fdef);
+
+                            pig.fdef.density=1f;
+                            pig.fdef.friction=0.5f;
+                            pig.fdef.restitution=0.1f;
+                            pig.body.createFixture(pig.fdef).setUserData(pig);
 
                             level.pigs.add(pig);
 

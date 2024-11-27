@@ -18,6 +18,8 @@ public class Ground {
     private float height;
     private TextureRegion texture;
 
+    int damage=1;
+
     BodyDef bdef;
     FixtureDef fdef;
     PolygonShape shape;
@@ -57,12 +59,14 @@ public class Ground {
 
 
                             ground.bdef.type = BodyDef.BodyType.StaticBody;
-                            ground.bdef.position.set(x + width / 2, y + height / 2);
+                            ground.bdef.position.set((x + width / 2)/Main.PPM, (y + height / 2)/Main.PPM);
                             ground.body = level.world.createBody(ground.bdef);
 
-                            ground.shape.setAsBox(width/2, height/2);
+                            ground.shape.setAsBox((width/2)/Main.PPM, (height/2)/Main.PPM);
                             ground.fdef.shape = ground.shape;
-                            ground.body.createFixture(ground.fdef);
+                            // ground.fdef.density=100f;
+                            // ground.fdef.friction=0.8f;
+                            ground.body.createFixture(ground.fdef).setUserData(ground);
 
 
                             ground.shape.dispose();

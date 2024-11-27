@@ -1,5 +1,6 @@
 package com.badlogic.drop;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapLayer;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 
 public class Yellow extends Bird {
+    public static final int givenDamage=3;
 
     private TextureRegion texture;
     private float height;
@@ -55,19 +57,29 @@ public class Yellow extends Bird {
         return y;
     }
 
-    BodyDef bdef;
-    FixtureDef fdef;
-    CircleShape cshape;
-    Body body;
+    // BodyDef bdef;
+    // FixtureDef fdef;
+    // CircleShape cshape;
+    // Body body;
 
     public Yellow(int damage) {
-        super(damage);
+        super(damage, Color.YELLOW);
 
         bdef = new BodyDef();
         fdef = new FixtureDef();
         cshape = new CircleShape();
 
 
+    }
+    public void specialAbility(Level level){
+        Body body= this.body;
+        float speedIncrease = 4f;
+
+
+        float currentVelocityX = body.getLinearVelocity().x;
+        float currentVelocityY = body.getLinearVelocity().y;
+
+        body.applyLinearImpulse(currentVelocityX * speedIncrease, currentVelocityY * speedIncrease, body.getWorldCenter().x, body.getWorldCenter().y, true);
     }
 
     public static void createYellow(TiledMap map, Level level){
@@ -86,7 +98,7 @@ public class Yellow extends Bird {
                             float x = tmo.getX();
                             float y = tmo.getY();
 
-                            Yellow yellow=new Yellow(2);
+                            Yellow yellow=new Yellow(givenDamage);
 
 
                             yellow.width=width;
@@ -97,12 +109,12 @@ public class Yellow extends Bird {
 
 
                             //box2d-
-                            yellow.bdef.type=BodyDef.BodyType.DynamicBody;
-                            yellow.bdef.position.set(x+width/2, y+height/2);
+                            yellow.bdef.type=BodyDef.BodyType.StaticBody;
+                            yellow.bdef.position.set((x+width/2)/Main.PPM, (y+height/2)/Main.PPM);
                             yellow.body=level.world.createBody(yellow.bdef);
-                            yellow.cshape.setRadius(width/2);
+                            yellow.cshape.setRadius((width/2)/Main.PPM);
                             yellow.fdef.shape= yellow.cshape;
-                            yellow.body.createFixture(yellow.fdef);
+                            yellow.body.createFixture(yellow.fdef).setUserData(yellow);
                             level.birds.add(yellow);
                             yellow.cshape.dispose();
                         }

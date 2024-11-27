@@ -18,9 +18,9 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
 
-public class LevelClearedScreen implements Screen {
+public class LevelClearedScreen2 implements Screen {
     private final Main game;
-    public Stage stage;
+    public static Stage stage;
     private Texture starTexture;
     private Texture settingsTexture;
     private Texture playTexture;
@@ -32,7 +32,7 @@ public class LevelClearedScreen implements Screen {
     private static final float VIRTUAL_WIDTH = 800;
     private static final float VIRTUAL_HEIGHT = 480;
     Level level;
-    public LevelClearedScreen(Main game,Level level) {
+    public LevelClearedScreen2(Main game,Level level) {
         this.game = game;
         stage = new Stage(new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT));
         Gdx.input.setInputProcessor(stage);
@@ -73,22 +73,28 @@ public class LevelClearedScreen implements Screen {
             star.setOrigin(Align.center);
             star.setScale(0);
 
+            if (i == 0 || i == 1) {
+                star.addAction(Actions.sequence(
+                    Actions.delay(i * 0.2f),
+                    Actions.scaleTo(1.2f, 1.2f, 0.3f, Interpolation.swingOut),
+                    Actions.scaleTo(1f, 1f, 0.2f)
+                ));
 
-            if (i == 0) {
-                star.setRotation(-20); // Slight rotation for the left star
-            } else if (i == 2) {
+                if (i == 0) {
+                    star.setRotation(-20); // Slight rotation for the left star
+                } else if (i == 1) {
+                    star.setRotation(0); // No rotation for the middle star
+                }
+            } else {
+                // Third star: semi-transparent
+                star.getColor().a = 0.3f;
                 star.setRotation(20); // Slight rotation for the right star
             }
 
-
-            star.addAction(Actions.sequence(
-                Actions.delay(i * 0.2f),
-                Actions.scaleTo(1.2f, 1.2f, 0.3f, Interpolation.swingOut),
-                Actions.scaleTo(1f, 1f, 0.2f)
-            ));
-
             stage.addActor(star);
         }
+
+
 
 
         float buttonY = VIRTUAL_HEIGHT * 0.2f;
@@ -112,10 +118,9 @@ public class LevelClearedScreen implements Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
                 if(Main.isSound) Main.sound.play();
                 level.isLevelCleared=false;
-                level.show();
+                Gdx.input.setInputProcessor(level.hud.stage);
             }
         });
 
