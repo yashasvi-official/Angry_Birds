@@ -18,8 +18,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.physics.box2d.Body;
 
 
 public class Level implements Screen {
@@ -162,6 +164,7 @@ public class Level implements Screen {
     }
 
     public static void createLevels(Main game) {
+
         Maps.createMaps();
         for (TiledMap map : Maps.maps) {
             if (map == null) {
@@ -171,33 +174,99 @@ public class Level implements Screen {
 
 
             Level obj = new Level(game);
+//            obj.level=Level.count;
             obj.map = map; // Ensure map is assigned before using it
             obj.setLevel(count);
             count++;
-            obj.hud = new Hud(game, obj);
-
-            // Initialize slingshot after map is assigned
-
-            SmallPig.createSmallPig(obj.map, obj);
-            SoldierPig.createSoldierPig(obj.map, obj);
-            KingPig.createKingPig(obj.map, obj);
-            Glass.createGlass(obj.map, obj);
-            Wood.createWood(obj.map, obj);
-            Rock.createrock(obj.map, obj);
-
-            Red.createRed(obj.map, obj);
-            Blue.createBlue(obj.map, obj);
-            Yellow.createYellow(obj.map, obj);
-            Ground.createGround(obj.map, obj);
-
-            obj.slingshot = new Slingshot(obj.world, obj.map, obj.camera);
-            obj.renderer = new ImprovedRenderer(obj.map, game.batch, obj,(1/Main.PPM));
-            obj.world.setContactListener(new WorldContactListener(obj));
+            obj.createSingleLevel(obj);
 
 
             levels.add(obj);
+//            Level.count++;
         }
     }
+    public void createSingleLevel(Level obj){
+        obj.hud = new Hud(game, obj);
+
+        // Initialize slingshot after map is assigned
+
+        SmallPig.createSmallPig(obj.map, obj);
+        SoldierPig.createSoldierPig(obj.map, obj);
+        KingPig.createKingPig(obj.map, obj);
+        Glass.createGlass(obj.map, obj);
+        Wood.createWood(obj.map, obj);
+        Rock.createrock(obj.map, obj);
+
+        Red.createRed(obj.map, obj);
+        Blue.createBlue(obj.map, obj);
+        Yellow.createYellow(obj.map, obj);
+        Ground.createGround(obj.map, obj);
+        Wall.createWall(obj.map,obj);
+
+        obj.slingshot = new Slingshot(obj.world, obj.map, obj.camera);
+        obj.renderer = new ImprovedRenderer(obj.map, game.batch, obj,(1/Main.PPM));
+        obj.world.setContactListener(new WorldContactListener(obj));
+
+
+    }
+
+    public Level restartLevel(Level level){
+        Level obj=new Level(game);
+        obj.setLevel(level.level);
+        obj.map=level.map;
+        obj.createSingleLevel(obj);
+
+        for(Level n:levels){
+            if(n.getLevel()==level.getLevel()){
+                levels.set(level.getLevel()-1,obj);
+
+            }
+        }
+        disposeLevel(level);
+        return obj;
+
+    }
+
+    public void disposeLevel(Level levelToRemove) {
+        // Dispose of Box2D world
+        if (levelToRemove.world != null) {
+            // Destroy all bodies in the world
+            Array<Body> bodies = new Array<Body>();
+            levelToRemove.world.getBodies(bodies);
+            for (Body body : bodies) {
+                levelToRemove.world.destroyBody(body);
+            }
+
+            // Dispose of the world
+            levelToRemove.world.dispose();
+        }
+
+        // Dispose of associated resources
+        if (levelToRemove.renderer != null) {
+            levelToRemove.renderer.dispose();
+        }
+
+//        if (levelToRemove.map != null) {
+//            levelToRemove.map.dispose();
+//        }
+
+//        if (levelToRemove.hud != null) {
+//            levelToRemove.hud.dispose();
+//        }
+
+        // Remove from levels list
+//        levels.remove(levelToRemove);
+
+        // Optional: Decrement level count if you're tracking it
+//        Level.count--;
+    }
+
+
+
+
+
+
+
 
     private void triggerParticleEffect(float x, float y) {
         ParticleEffectPool.PooledEffect effect = particleEffectPool.obtain();
@@ -277,29 +346,32 @@ public class Level implements Screen {
     }
 
     public void  isLevelOver(float delta){
-        if(gameOver){
-            timeLevelOver+=delta;
-            if(timeLevelOver<3f){
+        if(gameOver) {
+            timeLevelOver += delta;
+            if(timeLevelOver < 3f) {
                 return;
             }
-            timeLevelOver=0;
+            timeLevelOver = 0;
 
-            if(pigs.isEmpty() && blocks.isEmpty()){
-                LevelClearedManager.star3=true;
-            } else if (pigs.isEmpty() && !blocks.isEmpty()) {
-                LevelClearedManager.star2=true;
+            if(pigs.isEmpty()) {
+                // Unlock next level when current level is cleared
+                int nextLevelIndex = this.level;  // level is 1-based, array is 0-based
+                if (nextLevelIndex < Main.unlockedLevels.length) {
+                    Main.unlockedLevels[nextLevelIndex] = true;
+                }
 
-            } else if (!pigs.isEmpty()) {
-                LevelClearedManager.star1=true;
-
-
+                // Existing star logic
+                if(blocks.isEmpty()) {
+                    LevelClearedManager.star3 = true;
+                } else {
+                    LevelClearedManager.star2 = true;
+                }
+            } else {
+                LevelClearedManager.star1 = true;
             }
-            LevelClearedManager.levelCleared(game,this);
 
+            LevelClearedManager.levelCleared(game, this);
         }
-
-
-
     }
 
 
@@ -398,14 +470,17 @@ public class Level implements Screen {
                 }
                 else if(pig instanceof SoldierPig){
                     SoldierPig soldierPig = (SoldierPig) pig;
+                    Vector2 position = ((SoldierPig)pig).body.getPosition();
+                    triggerParticleEffect(position.x * Main.PPM- soldierPig.getWidth()/2-200, position.y * Main.PPM- soldierPig.getHeight()/2-50);
 
 
                     world.destroyBody(((SoldierPig) pig).body);
                     toRemove.add(pig);
                 }
                 else if(pig instanceof KingPig){
+                    KingPig kingPig = (KingPig) pig;
                     Vector2 position = ((KingPig)pig).body.getPosition();
-                    triggerParticleEffect(position.x * PPM, position.y * PPM);
+                    triggerParticleEffect(position.x * Main.PPM- kingPig.getWidth()/2-200, position.y * Main.PPM- kingPig.getHeight()/2-50);
 
                     world.destroyBody(((KingPig) pig).body);
                     toRemove.add(pig);
@@ -434,12 +509,7 @@ public class Level implements Screen {
 
 
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 
-//            Gdx.input.setInputProcessor(levelClearedScreen.stage);
-            isLevelCleared=true;
-
-        }
         if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))){
             slingshot.activeBird.specialAbility(this);
         }

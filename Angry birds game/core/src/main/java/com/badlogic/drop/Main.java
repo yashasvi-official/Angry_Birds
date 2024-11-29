@@ -21,11 +21,17 @@ public class Main extends Game {
     public static Sound sound;
 
     public static final float PPM=100f;
+    public static float currentLevel;
 
 
+    public static GameState gameState;
+    public static boolean[] unlockedLevels;
 
     @Override
     public void create() {
+        unlockedLevels = new boolean[3];
+        unlockedLevels[0] = true;
+
         music= Gdx.audio.newMusic(Gdx.files.internal("title_song.mp3"));
         music.setLooping(true);
         music.setVolume(0.5f);
@@ -42,7 +48,7 @@ public class Main extends Game {
 
 //        setScreen(new PlayScreen(this));
         // setScreen(new LoadingScreen(this,assetManager));
-        setScreen(new HomeScreen(this));
+        setScreen(new LoadingScreen(this,assetManager));
 
     }
     public void render(){

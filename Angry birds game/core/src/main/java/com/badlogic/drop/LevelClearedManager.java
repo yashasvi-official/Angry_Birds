@@ -8,7 +8,7 @@ public class LevelClearedManager {
     public static void levelCleared(Main game,Level level) {
         if(star1){
             star1 = false;
-            game.setScreen(new LevelClearedScreen(game, level));
+            game.setScreen(new LevelFailed(game, level));
         }
         else if(star2){
             star2 = false;

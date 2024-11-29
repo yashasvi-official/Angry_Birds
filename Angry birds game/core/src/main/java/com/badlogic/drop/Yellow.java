@@ -73,7 +73,7 @@ public class Yellow extends Bird {
     }
     public void specialAbility(Level level){
         Body body= this.body;
-        float speedIncrease = 4f;
+        float speedIncrease = 3.5f;
 
 
         float currentVelocityX = body.getLinearVelocity().x;

@@ -145,7 +145,21 @@ public class Settings implements Disposable {
     }
 
     private ImageButton createAboutButton() {
-        return new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("about.png"))));
+        TextureRegionDrawable drawable = new TextureRegionDrawable(new Texture(Gdx.files.internal("about.png")));
+        ImageButton obj=new ImageButton(drawable);
+
+        obj.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(Main.isSound) Main.sound.play();
+                game.setScreen(new About(game));
+
+            }
+        });
+        return obj;
+
+
+//        return new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("about.png"))));
     }
 
     private ImageButton createExitButton(Image background) {

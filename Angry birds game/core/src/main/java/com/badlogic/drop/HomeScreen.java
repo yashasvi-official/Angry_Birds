@@ -112,7 +112,7 @@ public class HomeScreen implements Screen {
                 // Code to open settings screen
                 if(Main.isSound) Main.sound.play();
                 System.out.println("Settings button clicked!");
-                game.setScreen(new SelectLevel(game));
+                game.setScreen(new ProgressScreen(game));
             }
 
         });

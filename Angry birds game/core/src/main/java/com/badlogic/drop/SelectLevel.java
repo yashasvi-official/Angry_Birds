@@ -9,10 +9,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.OrderedMap;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -33,10 +38,10 @@ public class SelectLevel implements Screen {
     ImageButton settings;
     public static boolean isSettings=false;
     Image heading;
-
+    Array<TextButton> levelButtons = new Array<>();
     Settings settingPopup;
 
-//    Label heading;
+    //    Label heading;
     public SelectLevel (Main game) {
         this.game = game;
         settingPopup=new Settings(game);
@@ -127,43 +132,65 @@ public class SelectLevel implements Screen {
     }
     private void createLevel(Table table) {
         table.top();
-
         table.padTop(450);
         table.padLeft(200);
         table.padRight(200);
-
         table.defaults().space(50);
-        int count=0;
-        for(int i=1;i<=3;i++){
-            if(count%3==0){
+
+        int count = 0;
+
+
+        for(int i = 1; i <= 3; i++) {
+            if(count % 3 == 0) {
                 table.row();
             }
-            TextButton button = new TextButton("Level"+Integer.toString(i),skin);
-//            button.setSize(300,400);
-            final int levelIndex=i-1;
+
+            final int levelIndex = i-1;
+            TextButton button = new TextButton("Level" + i, skin);
+
+            // Apply visual feedback for locked levels
+            if (!Main.unlockedLevels[levelIndex]) {
+                button.setColor(Color.GRAY);
+                button.getLabel().setColor(Color.DARK_GRAY);
+                button.setTouchable(Touchable.disabled);
+            }
 
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    // Only allow clicking if level is unlocked
 
                     if(Main.isSound) Main.sound.play();
                     game.setScreen(Level.levels.get(levelIndex));
+
                 }
             });
+            levelButtons.add(button);
 
             table.add(button);
             count++;
-
-
-
         }
-
-
-
-
     }
     @Override
     public void show() {
+        // Update button states when screen becomes visible
+        for(int i = 0; i < levelButtons.size; i++) {
+            updateButtonState(levelButtons.get(i), i);
+        }
+        Gdx.input.setInputProcessor(stage);
+    }
 
+    private void updateButtonState(TextButton button, int levelIndex) {
+        if (Main.unlockedLevels[levelIndex]) {
+            button.setColor(Color.WHITE);
+            button.getLabel().setColor(Color.WHITE);
+            // Make sure the button is enabled
+            button.setTouchable(Touchable.enabled);
+        } else {
+            button.setColor(Color.GRAY);
+            button.getLabel().setColor(Color.DARK_GRAY);
+            // Disable touch for locked levels
+            button.setTouchable(Touchable.disabled);
+        }
     }
 
     @Override

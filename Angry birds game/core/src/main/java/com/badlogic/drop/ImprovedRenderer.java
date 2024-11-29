@@ -170,7 +170,7 @@ public class ImprovedRenderer extends OrthogonalTiledMapRenderer {
                 SmallPig smallPig = (SmallPig) pig;
                 smallPig.x=(smallPig.body.getPosition().x)*Main.PPM - smallPig.getWidth() / 2;
                 smallPig.y=(smallPig.body.getPosition().y)*Main.PPM - smallPig.getHeight() / 2;
-                System.out.println("Pig x: "+smallPig.x+" Pig y: "+smallPig.y);
+
                 float angle=smallPig.body.getAngle();
                 batch.draw(
                     smallPig.getTexture(),

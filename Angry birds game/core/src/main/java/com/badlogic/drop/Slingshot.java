@@ -24,8 +24,8 @@ public class Slingshot extends InputAdapter {
 
     private World world;
     private Body bird;
-    private Vector2 frontAnchor;
-    private Vector2 backAnchor;
+    public Vector2 frontAnchor;
+    public Vector2 backAnchor;
     private boolean isDragging;
     private float maxStretch = 200f / Main.PPM;
     private ShapeRenderer shapeRenderer;

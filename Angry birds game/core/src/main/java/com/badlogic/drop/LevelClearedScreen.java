@@ -1,22 +1,21 @@
 package com.badlogic.drop;
 
-import com.badlogic.drop.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class LevelClearedScreen implements Screen {
     private final Main game;
@@ -40,7 +39,7 @@ public class LevelClearedScreen implements Screen {
         this.level=level;
         // Load textures
         starTexture = new Texture(Gdx.files.internal("star.png"));
-        settingsTexture = new Texture(Gdx.files.internal("settings.png"));
+        settingsTexture = new Texture(Gdx.files.internal("homeIcon.png"));
         playTexture = new Texture(Gdx.files.internal("playButton.png"));
         burstTexture = new Texture(Gdx.files.internal("burst.png"));
         levelClearedTexture = new Texture(Gdx.files.internal("level_cleared.png"));
@@ -103,6 +102,8 @@ public class LevelClearedScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Handle settings click
+                if(Main.isSound) Main.sound.play();
+                game.setScreen(new HomeScreen(game));
             }
         });
 
@@ -112,10 +113,20 @@ public class LevelClearedScreen implements Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
                 if(Main.isSound) Main.sound.play();
-                level.isLevelCleared=false;
-                level.show();
+
+                // Get the next level index
+                int nextLevelIndex = level.getLevel();  // Current level
+
+                // Check if next level exists and is unlocked
+                if (nextLevelIndex < Level.levels.size() && Main.unlockedLevels[nextLevelIndex]) {
+                    // Load next level
+                    game.setScreen(Level.levels.get(nextLevelIndex));
+                } else {
+                    // If no next level or it's locked, restart current level
+                    level.isLevelCleared = false;
+                    level.show();
+                }
             }
         });
 
@@ -128,6 +139,8 @@ public class LevelClearedScreen implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+
 
     }
 

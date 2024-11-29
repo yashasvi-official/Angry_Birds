@@ -67,6 +67,9 @@ public class GamePaused implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
 
                 if(Main.isSound) Main.sound.play();
+                Level restartedLevel=level.restartLevel(level);
+                game.setScreen(restartedLevel);
+
 
             }
         });
@@ -75,8 +78,9 @@ public class GamePaused implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
                 if(Main.isSound) Main.sound.play();
                 level.isGamePaused=false;
-                Gdx.input.setInputProcessor(level.hud.stage);
+//                Gdx.input.setInputProcessor(level.hud.stage);
 
+                game.setScreen(level);
 
             }
         });
@@ -85,12 +89,19 @@ public class GamePaused implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
                 if(Main.isSound) Main.sound.play();
                 level.isGamePaused=false;
+                if(level.getLevel()>=Main.currentLevel){
+                    Main.gameState=new GameState(level.getLevel());
+                    Main.gameState.saveToFile("game_save.dat");
+
+                }
+
                 game.setScreen(new HomeScreen(game));
 
 
             }
         });
         popUpTable.top();
+
 
         popUpTable.padTop(500);
         popUpTable.padLeft(150);
