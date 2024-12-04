@@ -185,6 +185,10 @@ public class Settings implements Disposable {
                     SelectLevel.isSettings = false;
                     Gdx.input.setInputProcessor(SelectLevel.stage);
                 }
+                else if(ProgressScreen.isSettings){
+                    ProgressScreen.isSettings=false;
+                    Gdx.input.setInputProcessor(ProgressScreen.stage);
+                }
             }
         });
         return exitButton;

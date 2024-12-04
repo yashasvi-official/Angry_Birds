@@ -1,31 +1,39 @@
 //package com.badlogic.drop;
 //
+
 //import com.badlogic.gdx.math.Vector2;
 //import com.badlogic.gdx.physics.box2d.Body;
 //import com.badlogic.gdx.physics.box2d.BodyDef;
 //import com.badlogic.gdx.physics.box2d.FixtureDef;
 //import com.badlogic.gdx.physics.box2d.World;
+////import org.junit.After;
+////import org.junit.Before;
+////import org.junit.Test;
+////import org.junit.jupiter.api.BeforeEach;
+////import org.junit.jupiter.api.Test;
+////import org.junit.jupiter.api.AfterEach;
 //import org.junit.After;
 //import org.junit.Before;
-//import org.junit.Test;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.BeforeAll;
-//import org.junit.jupiter.api.AfterEach;
+////import org.junit.jupiter.api.AfterEach;
+////import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import static org.junit.jupiter.api.Assertions.*;
+//import java.io.*;
 //
 //
 //import java.util.Timer;
 //
 //import static org.junit.jupiter.api.Assertions.*;
 //
-//class SlingshotTest {
+//public class SlingshotTest {
 //    private World world;
 //    private Body bird;
 //    private Slingshot slingshot;
 //    public Vector2 frontAnchor;
 //    public Vector2 backAnchor;
 //
-//    @BeforeEach
+//    @Before
 //    public void setUp() {
 //
 //        world = new World(new Vector2(0, -9.8f), true);
@@ -53,7 +61,7 @@
 //
 //    }
 //
-//    @AfterEach
+//    @After
 //    public void tearDown() {
 //        world.dispose();
 //    }

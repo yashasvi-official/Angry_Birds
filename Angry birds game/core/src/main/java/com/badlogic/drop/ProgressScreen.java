@@ -44,6 +44,7 @@ public class ProgressScreen implements Screen {
         camera = new OrthographicCamera();
         viewport=new FitViewport(Main.w_width, Main.w_height, camera);
         stage = new Stage(viewport,game.batch);
+        settingPopup=new Settings(game);
 
         Texture backTexture = new Texture(Gdx.files.internal("select_level.png"));
         background = new Image(backTexture);

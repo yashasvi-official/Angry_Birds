@@ -47,6 +47,3 @@ Players can activate special abilities by pressing the spacebar while the bird i
 
 Enjoy playing the Angry Birds Game!
 
-## Done by
-Yashasvi Bansal-2023612
-Diya Narula-2023213
